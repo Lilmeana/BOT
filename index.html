@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BÖT - AI Customer Service Solution</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
             color: white;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            width: 100%;
         }
 
         /* Glassmorphism Effect */
@@ -57,6 +58,38 @@
             z-index: -1;
             opacity: 0.3;
         }
+
+        /* --- MOBILE RESPONSIVENESS FIXES --- */
+        @media (max-width: 1024px) {
+            .nav-content { padding: 0 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .float-animation { animation: none; }
+            h1 { font-size: 3rem !important; }
+            .glass-card { padding: 1.5rem !important; }
+            #chat-widget {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 85px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.25rem !important; line-height: 1.2 !important; }
+            .nav-container { padding: 1rem; }
+            #auth-modal .glass-card { width: 92%; padding: 1.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            section { padding-left: 1rem !important; padding-right: 1rem !important; }
+        }
+
+        /* Table/Container Responsiveness */
+        .responsive-container {
+            width: 100%;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 <body>
@@ -64,13 +97,15 @@
     <div class="stars"></div>
 
     <div id="auth-modal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4">
-        <div class="glass-card p-8 w-full max-w-md relative">
-            <button onclick="toggleAuth()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
-            <h2 id="auth-title" class="text-3xl font-bold mb-6 text-center">Login to <span class="text-gradient">BÖT</span></h2>
+        <div class="glass-card p-8 w-full max-w-md relative mx-auto">
+            <button onclick="toggleAuth()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 id="auth-title" class="text-2xl md:text-3xl font-bold mb-6 text-center">Login to <span class="text-gradient">BÖT</span></h2>
             <form onsubmit="handleAuth(event)" class="flex flex-col gap-4">
-                <input type="email" placeholder="Email Address" required class="bg-white/5 border border-white/10 p-3 rounded-xl outline-none focus:border-blue-500 text-white">
-                <input type="password" placeholder="Password" required class="bg-white/5 border border-white/10 p-3 rounded-xl outline-none focus:border-blue-500 text-white">
-                <button type="submit" class="bg-blue-600 p-3 rounded-xl font-bold blue-glow hover:bg-blue-500 transition mt-2">Continue</button>
+                <input type="email" placeholder="Email Address" required class="bg-white/5 border border-white/10 p-3 rounded-xl outline-none focus:border-blue-500 text-white w-full">
+                <input type="password" placeholder="Password" required class="bg-white/5 border border-white/10 p-3 rounded-xl outline-none focus:border-blue-500 text-white w-full">
+                <button type="submit" class="bg-blue-600 p-4 rounded-xl font-bold blue-glow hover:bg-blue-500 transition mt-2 w-full">Continue</button>
             </form>
             <p class="text-center text-gray-400 mt-6 text-sm">
                 Don't have an account? <a href="#" class="text-blue-400 hover:underline">Sign up</a>
@@ -79,12 +114,12 @@
     </div>
 
     <nav class="fixed top-0 w-full z-50 bg-slate-950/50 backdrop-blur-lg border-b border-white/5">
-        <div class="flex items-center justify-between px-8 md:px-12 py-5 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between px-4 md:px-12 py-4 md:py-5 max-w-7xl mx-auto nav-container">
             <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
                 <div class="bg-blue-600 p-2 rounded-xl blue-glow">
-                    <i class="fas fa-robot text-xl"></i>
+                    <i class="fas fa-robot text-lg md:text-xl"></i>
                 </div>
-                <span class="text-2xl font-extrabold tracking-tight">BÖT</span>
+                <span class="text-xl md:text-2xl font-extrabold tracking-tight">BÖT</span>
             </div>
             <div class="hidden md:flex gap-10 text-gray-400 font-medium">
                 <a href="#home" class="hover:text-white transition">Home</a>
@@ -92,127 +127,133 @@
                 <a href="#pricing" class="hover:text-white transition">Pricing</a>
                 <a href="#faq" class="hover:text-white transition">FAQs</a>
             </div>
-            <button onclick="toggleAuth()" class="bg-blue-600 hover:bg-blue-500 px-10 py-2.5 rounded-full font-bold transition blue-glow">Login</button>
+            <button onclick="toggleAuth()" class="bg-blue-600 hover:bg-blue-500 px-6 md:px-10 py-2 md:py-2.5 rounded-full font-bold transition blue-glow text-sm md:text-base">Login</button>
         </div>
     </nav>
 
-    <main id="home" class="max-w-7xl mx-auto px-8 md:px-12 pt-40 pb-24 flex flex-col md:flex-row items-center relative z-10">
-        <div class="w-full md:w-1/2 flex justify-center float-animation order-2 md:order-1">
-            <div class="relative">
-               <img src="robot.png" alt="BÖT AI Assistant" class="max-w-full h-auto drop-shadow-[0_35px_35px_rgba(0,110,255,0.3)]">
+    <main id="home" class="max-w-7xl mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-24 flex flex-col md:flex-row items-center relative z-10 overflow-hidden">
+        <div class="w-full md:w-1/2 flex justify-center float-animation order-2 md:order-1 mt-12 md:mt-0">
+            <div class="relative w-full max-w-[280px] md:max-w-full">
+               <img src="robot.png" alt="BÖT AI Assistant" class="w-full h-auto drop-shadow-[0_35px_35px_rgba(0,110,255,0.3)]">
             </div>
         </div>
 
         <div class="w-full md:w-1/2 text-center md:text-left order-1 md:order-2 md:ml-16">
-            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-                Welcome to <span class="text-gradient">BÖT</span> – <br>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                Welcome to <span class="text-gradient">BÖT</span> – <br class="hidden md:block">
                 Your AI Customer Service!
             </h1>
-            <p class="text-gray-400 text-lg mb-10 leading-relaxed max-w-lg mx-auto md:mx-0">
+            <p class="text-gray-400 text-base md:text-lg mb-10 leading-relaxed max-w-lg mx-auto md:mx-0">
                 Let our friendly AI chatbot assist your customers 24/7 with instant, efficient support. Boost satisfaction and save time!
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <button onclick="toggleAuth()" class="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-full font-bold blue-glow transition transform hover:scale-105">Get Started</button>
-                <button class="bg-white/5 hover:bg-white/10 border border-white/20 px-10 py-4 rounded-full font-bold transition">Watch Demo</button>
+                <button onclick="toggleAuth()" class="bg-blue-600 hover:bg-blue-500 px-8 md:px-10 py-4 rounded-full font-bold blue-glow transition transform hover:scale-105 w-full sm:w-auto">Get Started</button>
+                <button class="bg-white/5 hover:bg-white/10 border border-white/20 px-8 md:px-10 py-4 rounded-full font-bold transition w-full sm:w-auto">Watch Demo</button>
             </div>
         </div>
     </main>
 
-    <section id="features" class="max-w-7xl mx-auto px-12 py-24 text-center relative z-10">
-        <h2 class="text-4xl font-extrabold mb-16">Why Choose <span class="text-gradient">BÖT</span>?</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-10">
-                <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
-                    <i class="fas fa-clock text-2xl text-blue-400"></i>
+    <section id="features" class="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-24 text-center relative z-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-12">Why Choose <span class="text-gradient">BÖT</span>?</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+            <div class="glass-card p-8 md:p-10">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
+                    <i class="fas fa-clock text-xl md:text-2xl text-blue-400"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3">24/7 Support</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Always available to assist your customers, day or night, without breaks.</p>
             </div>
-            <div class="glass-card p-10">
-                <div class="w-16 h-16 bg-cyan-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-cyan-500/30">
-                    <i class="fas fa-bolt text-2xl text-cyan-400"></i>
+            <div class="glass-card p-8 md:p-10">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-cyan-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-cyan-500/30">
+                    <i class="fas fa-bolt text-xl md:text-2xl text-cyan-400"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Instant Responses</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3">Instant Responses</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Provide quick and accurate answers to any queries within milliseconds.</p>
             </div>
-            <div class="glass-card p-10">
-                <div class="w-16 h-16 bg-indigo-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-500/30">
-                    <i class="fas fa-chart-line text-2xl text-indigo-400"></i>
+            <div class="glass-card p-8 md:p-10 sm:col-span-2 md:col-span-1">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-indigo-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-500/30">
+                    <i class="fas fa-chart-line text-xl md:text-2xl text-indigo-400"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Boost Satisfaction</h3>
+                <h3 class="text-lg md:text-xl font-bold mb-3">Boost Satisfaction</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">Enhance customer experience and watch your retention rates skyrocket.</p>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="py-24 px-8 max-w-7xl mx-auto bg-white/5 rounded-[40px] relative z-10">
-        <h2 class="text-4xl font-bold text-center mb-16">Simple <span class="text-gradient">Pricing</span></h2>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="glass-card p-10 border-white/10">
+    <section id="pricing" class="py-12 md:py-24 px-4 md:px-8 max-w-7xl mx-auto bg-white/5 rounded-[30px] md:rounded-[40px] relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">Simple <span class="text-gradient">Pricing</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto pricing-grid">
+            <div class="glass-card p-8 md:p-10 border-white/10">
                 <h3 class="text-xl font-bold mb-2">Starter</h3>
-                <div class="text-4xl font-black mb-6">$0 <span class="text-lg font-normal text-gray-500">/mo</span></div>
+                <div class="text-3xl md:text-4xl font-black mb-6">$0 <span class="text-lg font-normal text-gray-500">/mo</span></div>
                 <ul class="space-y-4 mb-8 text-gray-300 text-left">
                     <li><i class="fas fa-check text-blue-500 mr-2"></i> 100 Chats / month</li>
                     <li><i class="fas fa-check text-blue-500 mr-2"></i> Basic AI Model</li>
                 </ul>
-                <button onclick="toggleAuth()" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white/10 transition">Get Started</button>
+                <button onclick="toggleAuth()" class="w-full py-4 rounded-xl border border-white/20 hover:bg-white/10 transition font-bold">Get Started</button>
             </div>
-            <div class="glass-card p-10 border-blue-500/50 bg-blue-600/5">
+            <div class="glass-card p-8 md:p-10 border-blue-500/50 bg-blue-600/5">
                 <h3 class="text-xl font-bold mb-2">Pro</h3>
-                <div class="text-4xl font-black mb-6">$49 <span class="text-lg font-normal text-gray-500">/mo</span></div>
+                <div class="text-3xl md:text-4xl font-black mb-6">$49 <span class="text-lg font-normal text-gray-500">/mo</span></div>
                 <ul class="space-y-4 mb-8 text-gray-300 text-left">
                     <li><i class="fas fa-check text-blue-500 mr-2"></i> Unlimited Chats</li>
                     <li><i class="fas fa-check text-blue-500 mr-2"></i> Custom AI Training</li>
                 </ul>
-                <button onclick="toggleAuth()" class="w-full py-3 rounded-xl bg-blue-600 font-bold blue-glow hover:bg-blue-500 transition">Go Pro</button>
+                <button onclick="toggleAuth()" class="w-full py-4 rounded-xl bg-blue-600 font-bold blue-glow hover:bg-blue-500 transition">Go Pro</button>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="py-24 px-8 max-w-3xl mx-auto relative z-10">
-        <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked <span class="text-gradient">Questions</span></h2>
+    <section id="faq" class="py-16 md:py-24 px-6 md:px-8 max-w-3xl mx-auto relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 md:mb-12">Frequently Asked <span class="text-gradient">Questions</span></h2>
         <div class="space-y-4">
-            <details class="glass-card p-6 cursor-pointer group">
-                <summary class="font-bold flex justify-between items-center">How do I install BÖT? <i class="fas fa-chevron-down group-open:rotate-180 transition"></i></summary>
-                <p class="mt-4 text-gray-400">Just copy the script tag from your dashboard and paste it before the closing body tag of your website.</p>
+            <details class="glass-card p-5 md:p-6 cursor-pointer group">
+                <summary class="font-bold flex justify-between items-center text-sm md:text-base list-none">
+                    How do I install BÖT? <i class="fas fa-chevron-down group-open:rotate-180 transition ml-2"></i>
+                </summary>
+                <p class="mt-4 text-gray-400 text-sm md:text-base">Just copy the script tag from your dashboard and paste it before the closing body tag of your website.</p>
             </details>
-            <details class="glass-card p-6 cursor-pointer group">
-                <summary class="font-bold flex justify-between items-center">Is there a free trial? <i class="fas fa-chevron-down group-open:rotate-180 transition"></i></summary>
-                <p class="mt-4 text-gray-400">Yes! Our Starter plan is free forever for up to 100 chats per month.</p>
+            <details class="glass-card p-5 md:p-6 cursor-pointer group">
+                <summary class="font-bold flex justify-between items-center text-sm md:text-base list-none">
+                    Is there a free trial? <i class="fas fa-chevron-down group-open:rotate-180 transition ml-2"></i>
+                </summary>
+                <p class="mt-4 text-gray-400 text-sm md:text-base">Yes! Our Starter plan is free forever for up to 100 chats per month.</p>
             </details>
         </div>
     </section>
 
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-blue-600 p-4 rounded-full blue-glow z-50 text-white shadow-2xl hover:scale-110 transition duration-300">
-        <i class="fas fa-comment-dots text-2xl"></i>
+    <div class="h-24 md:hidden"></div>
+
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-blue-600 p-4 md:p-5 rounded-full blue-glow z-[60] text-white shadow-2xl hover:scale-110 transition duration-300">
+        <i class="fas fa-comment-dots text-xl md:text-2xl"></i>
     </button>
 
-    <div id="chat-widget" class="fixed bottom-24 right-6 w-[350px] h-[450px] hidden flex-col z-50 glass-card shadow-2xl overflow-hidden border-blue-500/30" style="background: rgba(15, 23, 42, 0.98);">
-        <div class="bg-blue-600 p-4 font-bold flex justify-between items-center">
+    <div id="chat-widget" class="fixed bottom-24 right-6 w-[320px] md:w-[350px] h-[400px] md:h-[450px] hidden flex-col z-[60] glass-card shadow-2xl overflow-hidden border-blue-500/30" style="background: rgba(15, 23, 42, 0.98);">
+        <div class="bg-blue-600 p-4 font-bold flex justify-between items-center shrink-0">
             <div class="flex items-center gap-2"><i class="fas fa-robot"></i> <span>BÖT Assistant</span></div>
-            <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+            <button onclick="toggleChat()" class="p-1"><i class="fas fa-times"></i></button>
         </div>
         <div id="chat-box" class="flex-1 p-4 overflow-y-auto flex flex-col gap-3 text-sm">
-            <div class="bg-blue-900/50 p-3 rounded-2xl rounded-tl-none self-start max-w-[80%] border border-white/10 text-white">
+            <div class="bg-blue-900/50 p-3 rounded-2xl rounded-tl-none self-start max-w-[85%] border border-white/10 text-white">
                 Hello! I'm BÖT. How can I help you today?
             </div>
         </div>
-        <div class="p-3 border-t border-white/10 flex gap-2">
+        <div class="p-3 border-t border-white/10 flex gap-2 shrink-0">
             <input id="user-input" type="text" placeholder="Ask a question..." 
-                class="bg-white/5 border border-white/10 rounded-lg px-3 py-2 flex-1 text-white focus:outline-none focus:border-blue-500 text-sm"
+                class="bg-white/5 border border-white/10 rounded-lg px-3 py-3 flex-1 text-white focus:outline-none focus:border-blue-500 text-sm"
                 onkeypress="if(event.key === 'Enter') sendMessage()">
-            <button onclick="sendMessage()" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition">
+            <button onclick="sendMessage()" class="bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-500 transition">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
     </div>
 
     <script>
-        // AUTH MODAL
         function toggleAuth() {
             const modal = document.getElementById('auth-modal');
             modal.classList.toggle('hidden');
+            document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
         }
 
         function handleAuth(e) {
@@ -221,7 +262,6 @@
             toggleAuth();
         }
 
-        // CHAT WIDGET
         function toggleChat() {
             const widget = document.getElementById('chat-widget');
             widget.classList.toggle('hidden');
@@ -234,21 +274,18 @@
             const msg = input.value.trim().toLowerCase();
             if(!msg) return;
 
-            // User Message
-            box.innerHTML += `<div class="bg-blue-600 p-3 rounded-2xl rounded-tr-none self-end max-w-[80%] shadow-lg text-white">${input.value}</div>`;
+            box.innerHTML += `<div class="bg-blue-600 p-3 rounded-2xl rounded-tr-none self-end max-w-[85%] shadow-lg text-white">${input.value}</div>`;
             input.value = '';
             box.scrollTop = box.scrollHeight;
 
-            // Fake AI Response logic
             setTimeout(() => {
                 let response = "That's a great question! How else can BÖT help you?";
-                
                 if(msg.includes("price") || msg.includes("cost")) response = "Our plans start at $0 for Starter and $49 for Pro. Check the Pricing section for details!";
                 else if(msg.includes("hello") || msg.includes("hi")) response = "Hello there! I'm BÖT. Ready to automate your support?";
                 else if(msg.includes("install") || msg.includes("setup")) response = "Setup is easy! Just copy one line of code from your dashboard to your site.";
 
                 box.innerHTML += `
-                    <div class="bg-blue-900/50 p-3 rounded-2xl rounded-tl-none self-start max-w-[80%] border border-white/10 text-white">
+                    <div class="bg-blue-900/50 p-3 rounded-2xl rounded-tl-none self-start max-w-[85%] border border-white/10 text-white">
                         ${response}
                     </div>
                 `;
@@ -256,6 +293,5 @@
             }, 700);
         }
     </script>
-
 </body>
 </html>
